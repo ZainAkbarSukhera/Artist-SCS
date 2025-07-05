@@ -1,0 +1,58 @@
+/* .textInputWrapper {
+  display: flex;
+  flex-direction: column;
+  width: inherit;
+  align-items: center;
+}
+
+.textInputWrapper input {
+  padding: 18px 30px;
+  margin: 15px;
+  outline: none;
+  width: 30%;
+  border: 1px solid #0a0a0a;
+  border-radius: 10px;
+  font-size: 20px;
+}
+
+.errorMessage {
+  color: #de1b55;
+  text-align: left;
+  width: 30%;
+} */
+
+.label {
+  display: block;
+  color: #1c2d41; /* yankees-blue */
+  font-size: 0.875rem; /* text-sm */
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300; /* font-montserrat-light */
+  margin-bottom: 0.5rem; /* mb-2 */
+}
+
+.labelDark {
+  color: #ffffff; /* dark mode text color */
+}
+
+.select {
+  background-color: #f9fafb; /* bg-gray-50 */
+  border: 1px solid #d1d5db; /* border-gray-300 */
+  color: #1c2d41; /* text-yankees-blue */
+  font-size: 0.875rem; /* text-sm */
+  border-radius: 0.5rem; /* rounded-lg */
+  width: 100%;
+  padding: 0.625rem; /* p-2.5 */
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.select:focus {
+  border-color: #f76c5e; /* fire-opal */
+  box-shadow: 0 0 0 1px #f76c5e; /* focus ring */
+  outline: none;
+}
+
+.selectDark {
+  background-color: #374151; /* dark:bg-gray-700 */
+  border-color: #4b5563; /* dark:border-gray-600 */
+  color: #ffffff; /* dark:text-white */
+}
