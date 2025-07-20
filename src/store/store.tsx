@@ -11,18 +11,33 @@
 
 // export type IRootState = ReturnType<typeof rootReducer>;
 // store.ts
+// import { configureStore } from '@reduxjs/toolkit';
+// import {
+//   persistStore,
+//   persistReducer,
+//   FLUSH,
+//   REHYDRATE,
+//   PAUSE,
+//   PERSIST,
+//   PURGE,
+//   REGISTER,
+// } from 'redux-persist';
+// import storage from 'redux-persist/lib/storage';
+// import rootReducer from './rootReducer';
 import { configureStore } from '@reduxjs/toolkit';
 import {
   persistStore,
   persistReducer,
+} from 'redux-persist'; // persistStore and persistReducer are usually from the main module
+import {
   FLUSH,
   REHYDRATE,
   PAUSE,
   PERSIST,
   PURGE,
   REGISTER,
-} from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
+} from 'redux-persist/lib/constants'; // These constants are from the /lib/constants path
+import storage from 'redux-persist/lib/storage'; // This import remains correct
 import rootReducer from './rootReducer';
 
 const persistConfig = {
