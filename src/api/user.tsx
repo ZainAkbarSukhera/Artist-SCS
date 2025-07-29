@@ -1003,15 +1003,65 @@ const Projectapi = axios.create({
  * @param data User's email and password.
  * @returns AxiosResponse with AuthSuccessData or an error message object.
  */
+// export const login = async (
+//     data: Pick<AuthPayload, "email" | "password">
+// ): Promise<AxiosResponse<AuthSuccessData> | { message: string }> => {
+//     try {
+//         const response = await api.post<AuthSuccessData>("/login", data);
+//         return response;
+//     } catch (error) {
+//         const err = error as AxiosError<{ message: string }>;
+//         return err.response?.data?.message ? { message: err.response.data.message } : { message: "Login failed. Server error." };
+//     }
+// };
+
 export const login = async (
     data: Pick<AuthPayload, "email" | "password">
 ): Promise<AxiosResponse<AuthSuccessData> | { message: string }> => {
+    // Log the input data (excluding password for security)
+    console.log("API CALL - LOGIN: Attempting to log in user.");
+    console.log("API CALL - LOGIN: Incoming data (email):", data.email);
+    // console.log("API CALL - LOGIN: Incoming data (password):", data.password); // Do NOT log passwords in production!
+
     try {
+        console.log(`API CALL - LOGIN: Sending POST request to ${api.defaults.baseURL}/login with data.`);
         const response = await api.post<AuthSuccessData>("/login", data);
+        console.log("API CALL - LOGIN: Received successful response from server.");
+        console.log("API CALL - LOGIN: Response status:", response.status);
+        console.log("API CALL - LOGIN: Response data (partial, for security):", {
+            tokenPresent: !!response.data.token, // Check if token exists
+            userPresent: !!response.data.user, // Check if user object exists
+            userRole: response.data.user?.role // Log user role if user exists
+        });
         return response;
     } catch (error) {
-        const err = error as AxiosError<{ message: string }>;
-        return err.response?.data?.message ? { message: err.response.data.message } : { message: "Login failed. Server error." };
+        console.error("API CALL - LOGIN: An error occurred during the login attempt.");
+        const err = error as AxiosError<{ message: string }>; // Assert error to AxiosError for more detailed logging
+
+        if (err.response) {
+            // The request was made and the server responded with a status code
+            // that falls out of the range of 2xx
+            console.error("API CALL - LOGIN ERROR: Server responded with an error.");
+            console.error("API CALL - LOGIN ERROR: Status:", err.response.status);
+            console.error("API CALL - LOGIN ERROR: Data:", err.response.data);
+            console.error("API CALL - LOGIN ERROR: Headers:", err.response.headers);
+
+            // Return message from server if available, otherwise a generic server error
+            return err.response.data?.message
+                ? { message: err.response.data.message }
+                : { message: `Login failed. Server error: ${err.response.status}` };
+        } else if (err.request) {
+            // The request was made but no response was received
+            // `error.request` is an instance of XMLHttpRequest in the browser and an http.ClientRequest in node.js
+            console.error("API CALL - LOGIN ERROR: No response received from server.");
+            console.error("API CALL - LOGIN ERROR: Request details:", err.request);
+            return { message: "Login failed. No response from server. Check network connection." };
+        } else {
+            // Something happened in setting up the request that triggered an Error
+            console.error("API CALL - LOGIN ERROR: Error setting up request.");
+            console.error("API CALL - LOGIN ERROR: Message:", err.message);
+            return { message: `Login failed. Request setup error: ${err.message}` };
+        }
     }
 };
 
