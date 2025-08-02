@@ -977,12 +977,12 @@ export interface AddedProjectResponseData {
 
 // Get the base URL from environment variables
 // Use a fallback for safety, though it should always be defined in .env files
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3001/v1";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3001";
 
 
 // Create axios instance for user authentication/profile
 const api = axios.create({
-    baseURL: `${API_BASE_URL}/user`, // Use the environment variable here
+    baseURL: `${API_BASE_URL}/v1/api/user`, // Use the environment variable here
     withCredentials: true,
     headers: {
         "Content-Type": "application/json",
@@ -991,7 +991,7 @@ const api = axios.create({
 
 // Create axios instance for projects (assuming a different base path)
 const Projectapi = axios.create({
-    baseURL: `${API_BASE_URL}/artConnectDirectory`, // Use the environment variable here
+    baseURL: `${API_BASE_URL}/v1/api/artConnectDirectory`, // Use the environment variable here
     withCredentials: true,
     headers: {
         "Content-Type": "application/json",

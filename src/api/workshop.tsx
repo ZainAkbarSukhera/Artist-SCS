@@ -222,12 +222,12 @@ export interface CreateWorkshopSuccessData {
 
 // Get the base URL from environment variables
 // Use a fallback for safety, though it should always be defined in .env files
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3001/v1";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3001";
 
 
 // Create an Axios instance specifically for workshop-related APIs
 const workshopApi = axios.create({
-  baseURL: `${API_BASE_URL}/artLearn`, // **IMPORTANT: Confirm this base URL.**
+  baseURL: `${API_BASE_URL}/v1/api/artLearn`, // **IMPORTANT: Confirm this base URL.**
   withCredentials: true,
   headers: {
     "Content-Type": "application/json",
