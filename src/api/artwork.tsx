@@ -334,7 +334,7 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3001
 
 // Create an Axios instance specifically for artwork-related APIs
 const artworkApi = axios.create({
-    baseURL: `${API_BASE_URL}/v1/api/artwork`, // Use the environment variable here
+    baseURL: `${API_BASE_URL}v1/api/artwork`, // Use the environment variable here
     withCredentials: true,
     headers: {
         "Content-Type": "application/json",
